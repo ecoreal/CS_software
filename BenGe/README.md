@@ -90,3 +90,7 @@ BenGe/
 - [前端说明](frontend/README.md)
 - [后端说明](backend/README.md)
 - [数据格式说明](frontend/docs/DataFormats.md)
+
+## 开源协议
+
+BenGe 作为本仓库的一部分，随仓库整体采用 [MIT License](../LICENSE) 开源。第三方依赖和外部服务仍遵循其各自许可证或服务条款。
