@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bengebackend.mapper.ScriptHistoryMapper">
+
+    <!-- 根据剧本ID查询历史记录 -->
+    <select id="selectByScriptId" resultType="com.bengebackend.model.ScriptHistory">
+        SELECT * FROM script_history WHERE script_id = #{scriptId} ORDER BY created_at ASC;
+    </select>
+
+    <!-- 根据ID查询历史记录 -->
+    <select id="selectById" resultType="com.bengebackend.model.ScriptHistory">
+        SELECT * FROM script_history WHERE id = #{id};
+    </select>
+
+    <!-- 插入新历史记录 -->
+    <insert id="insert" parameterType="com.bengebackend.model.ScriptHistory" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO script_history (script_id, message, response, created_at) 
+        VALUES (#{scriptId}, #{message}, #{response}, #{createdAt});
+    </insert>
+
+    <!-- 删除历史记录 -->
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM script_history WHERE id = #{id};
+    </delete>
+
+    <!-- 根据剧本ID删除历史记录 -->
+    <delete id="deleteByScriptId" parameterType="int">
+        DELETE FROM script_history WHERE script_id = #{scriptId};
+    </delete>
+
+</mapper>

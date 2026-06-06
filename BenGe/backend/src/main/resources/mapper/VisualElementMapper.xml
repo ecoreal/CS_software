@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bengebackend.mapper.VisualElementMapper">
+
+    <!-- 根据剧本ID查询可视化元素 -->
+    <select id="selectByScriptId" resultType="com.bengebackend.model.VisualElement">
+        SELECT * FROM visual_element WHERE script_id = #{scriptId};
+    </select>
+
+    <!-- 根据ID查询可视化元素 -->
+    <select id="selectById" resultType="com.bengebackend.model.VisualElement">
+        SELECT * FROM visual_element WHERE id = #{id};
+    </select>
+
+    <!-- 插入新可视化元素 -->
+    <insert id="insert" parameterType="com.bengebackend.model.VisualElement" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO visual_element (script_id, type, name, description, image_url, image_generated_at) 
+        VALUES (#{scriptId}, #{type}, #{name}, #{description}, #{imageUrl}, #{imageGeneratedAt});
+    </insert>
+
+    <!-- 更新可视化元素 -->
+    <update id="update" parameterType="com.bengebackend.model.VisualElement">
+        UPDATE visual_element 
+        SET type = #{type}, name = #{name}, description = #{description}, image_url = #{imageUrl}, image_generated_at = #{imageGeneratedAt}
+        WHERE id = #{id};
+    </update>
+
+    <!-- 删除可视化元素 -->
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM visual_element WHERE id = #{id};
+    </delete>
+
+    <!-- 根据剧本ID删除可视化元素 -->
+    <delete id="deleteByScriptId" parameterType="int">
+        DELETE FROM visual_element WHERE script_id = #{scriptId};
+    </delete>
+
+</mapper>

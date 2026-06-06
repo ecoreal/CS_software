@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bengebackend.mapper.UserMapper">
+
+    <!-- 查询所有用户 -->
+    <select id="findAll" resultType="com.bengebackend.model.User">
+        SELECT * FROM users;
+    </select>
+
+    <!-- 根据ID查询用户 -->
+    <select id="findById" resultType="com.bengebackend.model.User">
+        SELECT * FROM users WHERE id = #{id};
+    </select>
+
+    <!-- 根据用户名查询用户 -->
+    <select id="findByUsername" resultType="com.bengebackend.model.User">
+        SELECT * FROM users WHERE username = #{username};
+    </select>
+
+    <!-- 插入新用户 -->
+    <insert id="insertUser" parameterType="com.bengebackend.model.User">
+        INSERT INTO users (username, password_hash) VALUES (#{username}, #{passwordHash});
+    </insert>
+
+    <!-- 更新用户 -->
+    <update id="updateUser" parameterType="com.bengebackend.model.User">
+        UPDATE users
+        SET username = #{username}, password_hash = #{passwordHash}
+        WHERE id = #{id};
+    </update>
+
+    <!-- 删除用户 -->
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM users WHERE id = #{id};
+    </delete>
+
+</mapper>

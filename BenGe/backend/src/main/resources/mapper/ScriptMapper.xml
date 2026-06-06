@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bengebackend.mapper.ScriptMapper">
+
+    <!-- 根据ID查询剧本 -->
+    <select id="selectById" resultType="com.bengebackend.model.Script">
+        SELECT * FROM script WHERE id = #{id} AND is_deleted = 0;
+    </select>
+
+    <!-- 根据用户ID查询剧本 -->
+    <select id="selectByUserId" resultType="com.bengebackend.model.Script">
+        SELECT * FROM script WHERE user_id = #{userId} AND is_deleted = 0 ORDER BY last_updated DESC;
+    </select>
+
+    <!-- 插入新剧本 -->
+    <insert id="insert" parameterType="com.bengebackend.model.Script" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO script (title, content, user_id, is_deleted, last_updated, stage) 
+        VALUES (#{title}, #{content}, #{userId}, #{isDeleted}, #{lastUpdated}, #{stage});
+    </insert>    <!-- 更新剧本 -->
+    <update id="update">
+        UPDATE script 
+        SET title = #{title}, content = #{content}, stage = #{stage}, last_updated = #{lastUpdated}
+        WHERE id = #{id};
+    </update>
+
+    <!-- 删除剧本（软删除） -->
+    <update id="deleteById" parameterType="int">
+        UPDATE script SET is_deleted = 1 WHERE id = #{id};
+    </update>
+
+</mapper>

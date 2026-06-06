@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bengebackend.mapper.RoomMapper">
+    <insert id="createRoom" parameterType="com.bengebackend.model.Room" useGeneratedKeys="true" keyProperty="id">
+        insert into room (name, description,havePwd,password,owner_id,current_members)
+        values (#{name}, #{description},#{havePwd},#{password},#{ownerId},#{currentMembers});
+    </insert>
+
+    <select id="getAllRooms" resultType="com.bengebackend.dto.RoomDto">
+        SELECT
+            r.id as roomId,
+            r.name,
+            r.description,
+            u.username as ownerName,
+            COALESCE(member_count.count, 0) as currentMembers,
+            r.havePwd
+        FROM room r
+        LEFT JOIN users u ON r.owner_id = u.Id
+        LEFT JOIN (
+            SELECT room_id, COUNT(*) as count
+            FROM room_member
+            GROUP BY room_id
+        ) member_count ON r.id = member_count.room_id
+        ORDER BY r.created_at DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+
+
+    <select id="getRoomById" resultType="com.bengebackend.model.Room">
+        SELECT * FROM room WHERE id = #{roomId}
+    </select>
+
+    <select id="isUserInRoom" resultType="boolean">
+        SELECT COUNT(*) > 0 FROM room_member
+        WHERE room_id = #{roomId} AND user_id = #{userId}
+    </select>
+
+    <insert id="addRoomMember">
+        INSERT INTO room_member (room_id, user_id, role)
+        VALUES (#{roomId}, #{userId}, #{role})
+    </insert>
+
+    <update id="updateRoomMemberCount">
+        UPDATE room
+        SET current_members = current_members + #{increment}
+        WHERE id = #{roomId}
+    </update>
+
+    <delete id="removeRoomMember">
+        DELETE FROM room_member
+        WHERE room_id = #{roomId} AND user_id = #{userId}
+    </delete>
+
+
+
+    <select id="getUserCurrentRoom" resultType="com.bengebackend.model.Room">
+        SELECT r.* FROM room r
+        INNER JOIN room_member rm ON r.id = rm.room_id
+        WHERE rm.user_id = #{userId}
+        LIMIT 1
+    </select>
+
+    <select id="getUserOwnedRooms" resultType="com.bengebackend.dto.RoomDto">
+        SELECT
+            r.id as roomId,
+            r.name,
+            r.description,
+            u.username as ownerName,
+            COALESCE(member_count.count, 0) as currentMembers,
+            r.havePwd
+        FROM room r
+        LEFT JOIN users u ON r.owner_id = u.Id
+        LEFT JOIN (
+            SELECT room_id, COUNT(*) as count
+            FROM room_member
+            GROUP BY room_id
+        ) member_count ON r.id = member_count.room_id
+        WHERE r.owner_id = #{userId}
+        ORDER BY r.created_at DESC
+    </select>
+
+    <!-- 检查用户是否是房主 -->
+    <select id="checkIfOwner" resultType="boolean">
+        SELECT CASE
+        WHEN role = 2 THEN TRUE  <!-- 2 表示房主 -->
+        ELSE FALSE
+        END
+        FROM room_member
+        WHERE room_id = #{roomId}
+        AND user_id = #{userId}
+        LIMIT 1
+    </select>
+</mapper>

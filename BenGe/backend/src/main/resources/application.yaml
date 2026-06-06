@@ -1,0 +1,64 @@
+spring:
+  application:
+    name:BengeBackend
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/picture?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: ${DB_PASSWORD:changeme}
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.bengebackend.model
+
+# JWT配置
+jwt:
+  secret: ${JWT_SECRET:changeme}
+  expiration: 86400000 # 24小时(毫秒)
+
+# 服务端口配置
+server:
+  port: 7122
+  address: 0.0.0.0
+  tomcat:
+    max-swallow-size: -1       # 不限制最大吞咽大小
+  servlet:
+    context-parameters:
+      org.apache.tomcat.websocket.textBufferSize: 1048576  # 1MB
+      org.apache.tomcat.websocket.binaryBufferSize: 1048576
+logging:
+  level:
+    com.bengebackend: debug
+
+debug: true
+
+redisson:
+  config: |
+    singleServerConfig:
+      address: "redis://127.0.0.1:6379"
+
+xfyun:
+  appid: ${XFYUN_APPID:changeme}
+  api-password: "${XFYUN_API_PASSWORD:changeme}"
+  api-url: "https://spark-api-open.xf-yun.com/v2/chat/completions"  #for Spark X1
+  api_url_ultra: "https://spark-api-open.xf-yun.com/v1/chat/completions"  #for Spark Ultra4.0
+
+  appid_wwb: ${XFYUN_APPID_WWB:changeme}
+  x1_api_password: "${XFYUN_X1_API_PASSWORD:changeme}"
+  ultra_api_password: "${XFYUN_ULTRA_API_PASSWORD:changeme}"
+  gen_image_api_secret_wwb: "${XFYUN_GEN_IMAGE_API_SECRET_WWB:changeme}"
+  gen_image_api_key_wwb: "${XFYUN_GEN_IMAGE_API_KEY_WWB:changeme}"
+  gen_image_request_url: "https://spark-api.cn-huabei-1.xf-yun.com/v2.1/tti"
+  
+  # AI流式聊天相关配置
+  x1_http_api_password: "${XFYUN_X1_HTTP_API_PASSWORD:changeme}"
+  x1_http_api_url: "https://spark-api-open.xf-yun.com/v2/chat/completions"
+
+ngrok:
+  enabled: false
+  authToken: ${NGROK_AUTH_TOKEN:changeme}
+
+
