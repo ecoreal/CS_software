@@ -1,0 +1,64 @@
+{
+  "name": "picture",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "serve": "vue-cli-service serve --host 0.0.0.0",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "start": "vue-cli-service serve --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@kangc/v-md-editor": "^2.3.18",
+    "@vicons/ionicons5": "^0.13.0",
+    "@vue-flow/background": "^1.3.2",
+    "@vue-flow/core": "^1.45.0",
+    "@vueup/vue-quill": "^1.0.0-beta.11",
+    "axios": "^1.8.4",
+    "cloudflared": "^0.7.0",
+    "core-js": "^3.8.3",
+    "dompurify": "^3.2.6",
+    "element-plus": "^2.10.2",
+    "html-to-image": "^1.11.13",
+    "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.3",
+    "jspdf": "^3.0.1",
+    "lodash": "^4.17.21",
+    "markdown-it": "^14.1.0",
+    "marked": "^15.0.12",
+    "naive-ui": "^2.42.0",
+    "pinia": "^3.0.2",
+    "portal-vue": "^3.0.0",
+    "prismjs": "^1.30.0",
+    "quill": "^2.0.3",
+    "quill-cursors": "^4.0.4",
+    "turndown": "^7.2.0",
+    "v-md-editor": "^1.0.6",
+    "vercel": "^42.3.0",
+    "vue": "^3.2.13",
+    "vue-flow": "^0.3.0",
+    "vue-router": "^4.5.0",
+    "vue3-quill": "^0.3.1",
+    "y-quill": "^1.0.0",
+    "yarn": "^1.22.22",
+    "yjs": "^13.6.27"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/compiler-sfc": "^3.5.14",
+    "typescript": "^5.8.3",
+    "y-websocket": "^1.4.5"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}

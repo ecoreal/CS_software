@@ -15,5 +15,9 @@
 
 ---
 
+# 项目目录
+- `assignment1` - `assignment8`: 软件构造基础课程作业。
+- `Test_DB`: 测试数据库相关内容。
+- `BenGe`: 本格视界前端项目，整理自 `git@github.com:chantouRichard/BenGe.git`。运行方式和项目说明见 `BenGe/README.md`。
 
 
